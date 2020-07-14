@@ -1,0 +1,17 @@
+[
+    {
+        "id": "L_123456",
+        "organizationId": "2930418",
+        "name": "Long Island Office",
+        "timeZone": "America/Los_Angeles",
+        "tags": " tag1 tag2 ",
+        "type": "combined",
+        "productTypes": [
+            "appliance",
+            "switch",
+            "wireless"
+        ],
+        "disableMyMerakiCom": false,
+        "enrollmentString": "long-island-office"
+    }
+]
