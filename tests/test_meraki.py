@@ -22,7 +22,7 @@ class TestMeraki(unittest.TestCase):
             dashboard = meraki.DashboardAPI(self.api_key, suppress_logging=True)
             mock_request.get(f'{dashboard._session._base_url}/organizations/{organizationId}', text=response_json)
             my_org = dashboard.organizations.getOrganization(organizationId)
-            self.assertFalse('id' in my_org.keys())
+            self.assertTrue('id' in my_org.keys())
  
     def test_getOrganizationNetworks(self):
         with open('tests/mock_responses/getOrganizationNetworks.json', 'r') as response:

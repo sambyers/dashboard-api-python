@@ -1,3 +1,5 @@
+![Test Dashboard API Python SDK](https://github.com/sambyers/dashboard-api-python/workflows/Test%20Dashboard%20API%20Python%20SDK/badge.svg?branch=add-tests)
+
 # Meraki Dashboard API Python Library
 
 The Meraki Dashboard API Python library provides all current Meraki [Dashboard API](https://developer.cisco.com/docs/meraki-api-v1) calls to interface with the Cisco Meraki cloud-managed platform. The library is supported on Python 3.6 or above, and you can install it via [PyPI](https://pypi.org/project/meraki/):
