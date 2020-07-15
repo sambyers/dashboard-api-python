@@ -2,6 +2,7 @@ import unittest
 import meraki
 import requests_mock
 
+
 class TestNetworks(unittest.TestCase):
     def setUp(self):
         self.api_key = 'FAKE API KEY'
@@ -15,6 +16,7 @@ class TestNetworks(unittest.TestCase):
             mock_request.get(f'{dashboard._session._base_url}/organizations/{organizationId}/networks', text=response_json)
             my_nets = dashboard.networks.getOrganizationNetworks(organizationId)
             self.assertTrue('organizationId' in my_nets[0].keys())
+
 
 if __name__ == '__main__':
     unittest.main()
