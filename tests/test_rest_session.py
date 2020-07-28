@@ -13,7 +13,7 @@ class TestRestSession(unittest.TestCase):
         self.test_text = 'Test Error'
         self.suppress_logging = True
         self.dashboard = meraki.DashboardAPI(self.api_key, suppress_logging=self.suppress_logging)
-        self.mock_response_json = get_mock_response('test_response.json')
+        self.mock_response_dict = {"test": "test data"}
 
     def test_get_500_error(self, mock_request):
         mock_request.get(requests_mock.ANY, status_code=500, text=self.test_text)
@@ -25,10 +25,21 @@ class TestRestSession(unittest.TestCase):
         with self.assertRaises(meraki.exceptions.APIError):
             self.dashboard._session.get(self.metadata, self.url)
 
+    def test_get_429_error(self, mock_request):
+        mock_429_response_headers = {'Retry-After': '0'}
+        mock_request.get(requests_mock.ANY, status_code=429, text=self.test_text, headers=mock_429_response_headers)
+        with self.assertRaises(meraki.exceptions.APIError):
+            self.dashboard._session.get(self.metadata, self.url)
+    
+    def test_get_other_error(self, mock_request):
+        mock_request.get(requests_mock.ANY, status_code=777, text=self.test_text)
+        with self.assertRaises(meraki.exceptions.APIError):
+            self.dashboard._session.get(self.metadata, self.url)
+
     def test_get_200_ok(self, mock_request):
-        mock_request.get(requests_mock.ANY, status_code=200, text=self.mock_response_json)
-        test = self.dashboard._session.get(self.metadata, self.url)
-        self.assertTrue(test)
+        mock_request.get(requests_mock.ANY, status_code=200, json=self.mock_response_dict)
+        test_response = self.dashboard._session.get(self.metadata, self.url)
+        self.assertEqual(test_response, self.mock_response_dict)
 
 
 if __name__ == '__main__':
